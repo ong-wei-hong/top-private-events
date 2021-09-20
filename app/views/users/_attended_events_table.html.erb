@@ -1,0 +1,17 @@
+<table>
+  <tr>
+    <th>Event</th>
+    <th>Date</th>
+    <th>Organiser</th>
+  </tr>
+  <% load_events.find_each do |event| %>
+    <tr>
+      <td><%= link_to event.title, event_path(event.id) %></td>
+      <td><%= event.date %></td>
+      <td><%= link_to event.creator.name, user_path(event.creator.id) %></td>
+      <% if @user == current_user %>
+        <td><%= link_to 'Unattend', event_attendance_path(event_id: event.id), method: :delete %></td>
+      <% end %>
+    </tr>
+  <% end %>
+</table>

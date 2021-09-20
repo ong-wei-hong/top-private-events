@@ -1,0 +1,23 @@
+<h1>Events</h1>
+
+<% @past_events = @events.where("date < :today", today: Date.today) %>
+<% @upcoming_events = @events.where("date >= :today", today: Date.today) %>
+
+<% if @upcoming_events.any? %>
+  <h2>Upcoming events</h2>
+  <%= render 'events_index_table', load_events: @upcoming_events %>
+<% end %>
+<br />
+<% if @past_events.any? %>
+  <h2>Past events</h2>
+  <%= render 'events_index_table', load_events: @past_events %>
+<% end %>
+<br />
+<% if user_signed_in? %>
+  <%= link_to 'Sign out', destroy_user_session_path, method: :delete %>
+  <%= link_to 'New event', new_event_path %>
+  <%= link_to current_user.name, current_user %>
+<% else %>
+  <%= link_to 'Sign Up', new_user_registration_path %>
+  <%= link_to 'Sign In', new_user_session_path %>
+<% end %>

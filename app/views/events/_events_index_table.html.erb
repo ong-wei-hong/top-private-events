@@ -1,0 +1,14 @@
+<table>
+  <tr>
+    <th>Event</th>
+    <th>Date</th>
+    <th>Organiser</th>
+  </tr>
+  <% load_events.find_each do |event| %>
+    <tr>
+      <td><%= link_to event.title, event_path(event.id) %></td>
+      <td><%= event.date %></td>
+      <td><%= link_to event.creator.name, user_path(event.creator.id) %></td>
+    </tr>
+  <% end %>
+</table>

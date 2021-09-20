@@ -1,0 +1,30 @@
+<h1><%= @user.name %></h1>
+
+<% if @user.events.any? %>
+  <h2>Organised events</h2>
+  <%= render 'organised_events_template', events: @user.events %>
+<% else %>
+  <h2>No organised events yet</h2>
+<% end %>
+
+<% if @user.attended_events.any? %>
+  <h2>Attended events</h2>
+  <%= render 'attended_events_template', events: @user.attended_events %>
+<% else %>
+  <h2>No attended events yet</h2>
+<% end %>
+
+<br />
+
+<% if user_signed_in? %>
+  <%= link_to 'Sign out', destroy_user_session_path, method: :delete %>
+  <%= link_to 'New event', new_event_path %>
+  <% if current_user != @user %>
+    <%= link_to current_user.name, current_user %>
+  <% end %>
+<% else %>
+  <%= link_to 'Sign Up', new_user_registration_path %>
+  <%= link_to 'Sign In', new_user_session_path %>
+<% end %>
+
+<%= link_to 'Event index', root_path %>

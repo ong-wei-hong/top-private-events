@@ -1,0 +1,28 @@
+<h1>Event Invites</h1>
+
+<% if @invited_users.any? %>
+  <h2>Invited users</h2>
+  <% @invited_users.each do |user| %>
+    <p><%= user.name %></p>
+  <% end %>
+<% else %>
+  <h2>No users invited yet</h2>
+<% end %>
+
+<br />
+
+<% if @other_users.any? %>
+  <h2>Not invited yet</h2>
+  <% @other_users.each do |user| %>
+    <%= link_to user.name, event_invites_path(invited_event_id: params[:event_id], invitee_id: user.id), method: :post %>
+  <% end %>
+<% else %>
+  <h2>All users invited</h2>
+<% end %>
+
+<br /><br />
+
+<%= link_to 'Sign out', destroy_user_session_path, method: :delete %>
+<%= link_to 'New event', new_event_path %>
+<%= link_to current_user.name, current_user %>
+<%= link_to 'Event index', root_path %>
